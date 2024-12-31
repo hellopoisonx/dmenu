@@ -48,7 +48,7 @@
             nativeBuildInputs = with final; [
               pkg-config
               makeWrapper
-              inputs'.nixvim.c-cpp
+              inputs'.nixvim.packages.c-cpp
               bear
             ];
             preConfigure = ''
