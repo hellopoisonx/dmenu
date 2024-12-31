@@ -34,7 +34,10 @@
           version = builtins.substring 0 8 lastModifiedDate;
         in
         {
-          overlayAttrs = { };
+          overlayAttrs = {
+            inherit (config.packages) dmenu nixvim;
+          };
+          packages.nixivm = inputs'.nixvim.packages.c-cpp;
           packages.dmenu = final.stdenv.mkDerivation {
             pname = "dmenu";
             inherit version;
@@ -48,7 +51,7 @@
             nativeBuildInputs = with final; [
               pkg-config
               makeWrapper
-              inputs'.nixvim.packages.c-cpp
+              nixvim
               bear
             ];
             preConfigure = ''
