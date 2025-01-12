@@ -1,13 +1,12 @@
 #!/bin/sh
+directories=(
+  "/usr/share/applications"
+  "/usr/local/share/applications"
+  "$HOME/.local/share/applications"
+)
 
-cachedir="${XDG_CACHE_HOME:-"$HOME/.cache"}"
-cache="$cachedir/dmenu_run"
-
-[ ! -e "$cachedir" ] && mkdir -p "$cachedir"
-
-IFS=:
-if stest -dqr -n "$cache" $PATH; then
-	stest -flx $PATH | sort -u | tee "$cache"
-else
-	cat "$cache"
-fi
+find "${directories[@]}" -type f -iname "*.desktop" -print0 | \
+  sort -z | \
+  while IFS= read -r -d '' file; do
+      echo "$file"
+  done

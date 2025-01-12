@@ -1,2 +1,2 @@
 #!/bin/sh
-dmenu_path | dmenu "$@" | ${SHELL:-"/bin/sh"} &
+gio launch $(dmenu_path 2>/dev/null | dmenu "$@" -l 9 -i)
