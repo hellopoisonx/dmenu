@@ -1,2 +1,9 @@
 #!/bin/sh
-gio launch $(dmenu_path 2>/dev/null | dmenu "$@" -l 9 -i)
+entries=$(dmenu_path 2>/dev/null)
+declare -A arr
+while IFS= read -r entry; do
+    entry_basename="$(basename --suffix .desktop "$entry")"
+    arr["$entry_basename"]="$entry"
+done <<< "$entries"
+basenames=$(for basename in "${!arr[@]}"; do echo "$basename"; done)
+gio launch "${arr["$(echo "$basenames" | dmenu "$@" -l 9 -i)"]}"

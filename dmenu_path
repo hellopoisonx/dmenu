@@ -3,6 +3,7 @@ directories=(
   "/usr/share/applications"
   "/usr/local/share/applications"
   "$HOME/.local/share/applications"
+  "$HOME/Desktop"
 )
 
 find "${directories[@]}" -type f -iname "*.desktop" -print0 | \
